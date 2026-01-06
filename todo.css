@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
 *{
     padding:0;
     margin:0;
     box-sizing:border-box;
+    font-family: poppins,sans-serif;
     
 }
 
@@ -11,18 +14,19 @@ body{
     justify-content: center;
     align-items: center;
     height:100vh;
-    background-color: #0984E3;
+    background-color: #111827;
 }
 
 .todo-container{
     width:550px;
     height : 600px;
     padding:30px;
-    background-color: #F5F7FA;
+    background-color: #1c1f21;
     display:flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.8);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+                0 10px 10px -5px rgba(255, 0, 128, 0.04);
 
 
 }
@@ -32,23 +36,27 @@ body{
     
 }
 #header h1{
+    background:linear-gradient(rgb(255, 0, 72), rgb(234, 0, 255));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: transparent;
     margin-bottom:10px;
     font-weight:700px;
     letter-spacing: -1.5px;
-    text-shadow:2px 2px 4px rgba(0,0,0,0.4);
-    color:#2F3542
+ 
 }
 #header p{
     font-size:14px;
+    color:#ddd
 }
 .stat-box{
     margin-top:20px;
     padding:20px 0;
     width:450px;
     height:95px;
-    background-color: #4F46E5;
-    border:3px solid #f4f4f4;
+    background-color: rgb(255, 229, 192);
+    border:3px solid rgba(255, 0, 55, 0.542);
     border-radius:10px;
+    box-shadow: 60px, 0 150px rgba(255, 0, 72, 0.5), -60px 0 150px rgba(234, 0, 255, 0.5);
     display: flex;
     justify-content: space-evenly;
 
@@ -62,10 +70,16 @@ body{
     font-size:14px;
     color:white;
 }
+.stat-labels{
+    font-size:16px;
+    font-weight:600;
+    color:#1d1620;
+}
 
 #total, #completed, #pending{
     font-size:25px;
     font-weight:700;
+    color:rgb(255, 0, 170)
 }
 
 
@@ -87,22 +101,55 @@ body{
     border: 1px solid #ddd;
     border-radius: 12px 0 0 12px; 
 }
+.input-box input:focus{
+    outline:none;
+    border:3px solid transparent;
+    background-image:
+        linear-gradient(#ddd,#ddd),
+        linear-gradient(rgb(255, 0, 72), rgb(234, 0, 255));
+    background-origin:border-box;
+    background-clip: padding-box, border-box;
+}
 #add{
-    margin-top:30px;
+    margin-top:25px;
     width:65px;
     height:55px;
-    padding: 0 15;
-    border: 1px solid #ddd;
-    border-radius:10px;
-    background-color: #00CEC9;
+    padding: 0 15px;
+    border: none;
+    border-radius:1rem;
+    background-color: #161a20;
     cursor:pointer;
     color:white;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid transparent; /* This creates the space for the border */
+    background-image: 
+        linear-gradient(#161a20, #161a20), /* Inner color */
+        linear-gradient(to bottom right, rgb(255, 0, 72), rgb(234, 0, 255)); /* Border gradient */
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    
 }
-
 #add:hover{
-    background-color: #00bfa5;
-    transform: translateY(-2px);
+    box-shadow: 10px 0 70px rgb(255, 0, 72),-5px 0 70px rgb(234, 0, 255);
+    opacity:0.75;
 }
+/*
+#add::after{
+    content:'';
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    height:100%;
+    border-radius:1rem;
+    background-image:linear-gradient(to bottom right,rgb(255, 0, 72),rgb(234, 0, 255));
+    z-index:-1;
+}*/
+
+
 .reminders{
     width:100%;
     height:100px;
@@ -115,7 +162,7 @@ body{
 .reminders button{
     width:90px;
     height:30px;
-    border:2px solid #ddd;
+    border:2px solid #161a20;
     background-color: white;
     cursor:pointer;
     border-radius: 50%;
@@ -152,17 +199,30 @@ body{
     padding:10px 20px;
     margin-bottom:10px;
     border-radius:12px;
-    border:1px solid #ddd;
+    border:2px solid transparent;
+    background-image: 
+        linear-gradient(#ddd, #ddd), /* Inner color */
+        linear-gradient(to bottom right, rgb(255, 0, 72), rgb(234, 0, 255)); /* Border gradient */
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
 
-
+}
+.task-item.completed span {
+    text-decoration: line-through;
+    color: gray;
+    opacity: 0.5;
+}
+.select{
+    background: linear-gradient(to top, rgb(255, 0, 72), rgb(234, 0, 255));
+    border: 2px solid #161a20;
+    color: white;
+    cursor: pointer;
 }
 
 .styles{
     opacity:0.6;
     color:gray;
     text-decoration: line-through;
-
-
 }
 .hidden{
     display:none;
