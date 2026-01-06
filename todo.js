@@ -18,31 +18,37 @@ let idxtotal =0;
 addBtn.addEventListener("click",()=>{
     AddTasks();
 
-    
 })
-
+createTaskElement = (userInput,isComplete=false)=>{
+    const li = document.createElement('li');
+    li.classList.add("task-item");
+    if(isComplete){
+        li.classList.add("completed");
+    }
+    li.innerHTML=
+    `<div class="task-content">
+        <input type="checkbox" class="task-checkbox" ${isComplete ? "checked":''}>
+        <span>${userInput}</span> 
+    </div>`;
+    const checkbox = li.querySelector(".task-checkbox");
+    checkbox.addEventListener("change",()=>{
+        li.classList.toggle("completed");
+        updateStats();
+        saveTasks();
+        });
+    todoList.appendChild(li);
+    EmptyImg.classList.add("hidden");
+    EmptyMsg.classList.add("hidden");
+    updateStats();
+}
 const AddTasks = ()=>{
     let userInput = text.value.trim();
     if(userInput.length===0){
         alert("Please enter a reminder!");
         return;
     }else{
-        let li =document.createElement("li");
-        idxtotal++;
-        EmptyImg.classList.add("hidden");
-        EmptyMsg.classList.add("hidden");
-        li.classList.add("task-item");
-        li.innerHTML=
-        `<div class="task-content">
-            <input type="checkbox" class="task-checkbox">
-            <span>${userInput}</span>
-        </div>`;
-        const checkbox = li.querySelector(".task-checkbox");
-        checkbox.addEventListener("change",()=>{
-            li.classList.toggle("completed");
-            updateStats();
-        });
-        todoList.appendChild(li);
+        createTaskElement(userInput);
+        saveTasks();
         updateStats();
         text.value ="";
     }
@@ -106,3 +112,32 @@ completed.addEventListener("click",()=>{
         }
     })
 })
+
+
+
+const saveTasks = ()=>{
+    const tasks=[];
+    const tk = document.querySelectorAll(".task-item");
+    tk.forEach((tks)=>{
+        tasks.push({
+            text: tks.querySelector("span").innerText,
+            completed:tks.classList.contains("completed")
+        })
+    })
+    localStorage.setItem("TickStack_data",JSON.stringify(tasks));
+
+};
+
+const loadTasks = ()=>{
+    load = localStorage.getItem("TickStack_data");
+    if(load){
+        const savedData = JSON.parse(load);
+        savedData.forEach(tasks=>{
+            createTaskElement(tasks.text,tasks.completed);
+    })
+    }
+
+    
+}
+
+loadTasks();
